@@ -1,0 +1,17 @@
+{
+	"name": "Create Sales DB",
+	"properties": {
+		"content": {
+			"query": "CREATE DATABASE Sales\n   COLLATE Latin1_General_100_BIN2_UTF8;\n\n\n\nCREATE EXTERNAL DATA SOURCE sales\nWITH(\n    LOCATION = 'https://datalakevid8uxe.dfs.core.windows.net/files/'\n\n)\n\n\nCREATE EXTERNAL FILE FORMAT parquetFormat\nWITH(\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n\n)\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Sales",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

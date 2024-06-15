@@ -1,0 +1,17 @@
+{
+	"name": "Create ProductSalesTotals table",
+	"properties": {
+		"content": {
+			"query": "\nCREATE EXTERNAL TABLE productSalesTotals\nWITH(\n    LOCATION = 'sales/productsales',\n    DATA_SOURCE = sales,\n    FILE_FORMAT = parquetFormat\n)\nAS \nSELECT Item AS Product,\nSUM(Quantity) AS ItemSold,\nROUND(SUM(UnitPrice) - SUM(TaxAmount),2) AS NetRevenue\n FROM\nOPENROWSET(\n    BULK 'sales/csv/*.csv',\n    DATA_SOURCE = 'sales',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    HEADER_ROW = TRUE\n) AS orders\nGROUP BY Item;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Sales",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
